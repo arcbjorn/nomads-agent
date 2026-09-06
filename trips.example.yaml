@@ -1,0 +1,32 @@
+# Desired travel state for `nomads trips sync`.
+#
+# This file is the source of truth: sync makes Nomads.com match it, applying
+# only the differences. Running the same file twice changes nothing the second
+# time.
+#
+#   nomads trips sync trips.yaml --dry-run   # preview
+#   nomads trips sync trips.yaml             # create and update only
+#   nomads trips sync trips.yaml --delete-missing   # also remove trips not listed
+#
+# Dates are plain calendar dates, YYYY-MM-DD. Back-to-back trips may share a
+# travel day (one ends the day the next begins); that is not treated as an
+# overlap.
+
+trips:
+  - city: Lisbon
+    country: Portugal
+    from: 2030-04-10
+    to: 2030-04-18
+
+  - city: Porto
+    country: Portugal
+    from: 2030-04-20
+    to: 2030-04-30
+
+  - city: Malaga
+    country: Spain
+    from: 2030-05-01
+    to: 2030-05-20
+    # Optional: pin the exact Nomads.com city instead of geocoding the name.
+    slug: malaga-spain
+    note: writing month
