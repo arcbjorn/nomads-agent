@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- Redacted fixture reproducing the structure of an authenticated
+     https://nomads.com/@<username> page. Every value is invented:
+     synthetic trip ids, placeholder handle, fictional cities and dates. -->
+<html class="logged-in">
+<head><title>Your travel profile on Nomads.com</title></head>
+<body class="userProfile">
+
+<table class="trips" id="trips">
+  <tr class="trip  show  year-2026 by-user  future   aaaa0000000000000000000000000000000000000000000001   "
+      id=""
+      data-trip-id="aaaa0000000000000000000000000000000000000000000001"
+      data-date-start="2030-04-10" data-date-end="2030-04-18"
+      data-epoch-start="1902009600" data-epoch-end="1902700800"
+      data-slug="lisbon-portugal"
+      data-latitude="38.7223" data-longitude="-9.1393">
+    <td class="bg"></td>
+    <td class="trip_start">10 Apr</td>
+    <td class="trip_length" title="8 days">8d</td>
+    <td class="trip_end">18 Apr</td>
+    <td class="trip_date_mobile">10 Apr<br/>18 Apr</td>
+    <td class="image">
+      <a class="action-open-city-from-img" href="/lisbon-portugal"><img class="lazyload" src="/assets/pixel.gif" data-src="/assets/img/lisbon.jpg"/></a>
+    </td>
+    <td class="name"><h2>Lisbon</h2><span class="temperature-indicator-round"><span class="metric">21&deg;C</span></span></td>
+    <td class="country">Portugal</td>
+    <td class="overlap"></td>
+  </tr>
+
+  <tr class="trip  show  year-2026 by-user  future   aaaa0000000000000000000000000000000000000000000002   "
+      data-trip-id="aaaa0000000000000000000000000000000000000000000002"
+      data-date-start="2030-05-01" data-date-end="2030-05-20"
+      data-epoch-start="1903824000" data-epoch-end="1905465600"
+      data-slug="porto-portugal"
+      data-latitude="41.1495" data-longitude="-8.6108">
+    <td class="bg"></td>
+    <td class="trip_start">1 May</td>
+    <td class="trip_length" title="19 days">19d</td>
+    <td class="trip_end">20 May</td>
+    <td class="trip_date_mobile">1 May<br/>20 May</td>
+    <td class="image"><a class="action-open-city-from-img" href="/porto-portugal"><img class="lazyload" src="/assets/pixel.gif"/></a></td>
+    <td class="name"><h2>Porto</h2></td>
+    <td class="country">Portugal</td>
+    <td class="overlap"></td>
+  </tr>
+
+  <!-- An accented city name, to exercise canonicalisation. -->
+  <tr class="trip  show  year-2023 by-user  past   aaaa0000000000000000000000000000000000000000000003   "
+      data-trip-id="aaaa0000000000000000000000000000000000000000000003"
+      data-date-start="2029-02-03" data-date-end="2029-02-11"
+      data-epoch-start="1864684800" data-epoch-end="1865376000"
+      data-slug="malaga-spain"
+      data-latitude="36.7213" data-longitude="-4.4213">
+    <td class="bg"></td>
+    <td class="trip_start">3 Feb</td>
+    <td class="trip_length" title="8 days">8d</td>
+    <td class="trip_end">11 Feb</td>
+    <td class="trip_date_mobile">3 Feb<br/>11 Feb</td>
+    <td class="image"><a class="action-open-city-from-img" href="/malaga-spain"><img class="lazyload" src="/assets/pixel.gif"/></a></td>
+    <td class="name"><h2>M&aacute;laga</h2></td>
+    <td class="country">Spain</td>
+    <td class="overlap"></td>
+  </tr>
+
+  <!-- The editor template row: has class="trip" but no data-trip-id.
+       The parser must skip it rather than emit a bogus trip. -->
+  <tr class="trip trip_editor" id="newTripEditor">
+    <td class="bg"></td>
+    <td class="name"><h2></h2></td>
+    <td class="country"></td>
+  </tr>
+</table>
+
+<div class="backdrop modal-profile-edit-backdrop"></div>
+<div class="modal modal-profile-edit">
+  <span class="close-btn action-close-profile-edit-modal">&times;</span>
+  <input class="edit-username" type="text" value="testuser"/>
+  <textarea class="edit-bio">Remote developer, currently in Europe.</textarea>
+  <input class="edit-dob" type="text" value=""/>
+  <select class="edit-nationality"></select>
+  <select class="edit-residency"></select>
+  <input class="edit-website" type="text" value="https://example.com/"/>
+  <input class="edit-twitter" type="text" value="exampleuser"/>
+  <input class="edit-instagram" type="text" value="exampleuser"/>
+  <input class="edit-youtube" type="text" value=""/>
+  <input class="edit-tiktok" type="text" value=""/>
+  <div class="button red action-save-profile-edit">Save</div>
+</div>
+
+<div class="match-settings">
+  <div class="tags">
+    <span class="active" data-category="work" data-key="Web Dev">&#128376; Web Dev</span>
+    <span class="active" data-category="work" data-key="Software Dev">&#128187; Software Dev</span>
+    <span class="" data-category="work" data-key="Mobile Dev">&#128241; Mobile Dev</span>
+    <span class="active" data-category="sports" data-key="Sports">&#127939; Sports</span>
+    <span class="" data-category="work" data-key="Game Dev">&#128126; Game Dev</span>
+  </div>
+</div>
+
+</body>
+</html>
