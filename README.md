@@ -147,7 +147,7 @@ nomads auth logout     # delete all local credentials
 
 ```bash
 nomads profile get
-nomads profile update --bio "Building things and moving around Europe."
+nomads profile update --bio "Remote developer, currently in Europe."
 nomads profile update --tags "Web Dev,Software Dev,Sports"
 
 nomads trips list
@@ -264,9 +264,38 @@ Errors are returned as semantic codes rather than raw HTTP details:
 `TRIP_AMBIGUOUS`, `TRIP_NOT_FOUND`, `REMOTE_STATE_MISMATCH`, `RATE_LIMITED`,
 `NOMADS_API_CHANGED`, `GEOCODE_FAILED`, `INVALID_INPUT`, `NETWORK_ERROR`.
 
-Nomads.com also runs its own MCP server at `https://nomads.com/mcp` for city
-search and meetups. It complements this one, which adds the editing and profile
-operations it does not cover.
+### How this relates to Nomads.com's own MCP server
+
+Nomads.com runs an official MCP server at `https://nomads.com/mcp` with five
+tools: `search_cities`, `get_city`, `list_meetups`, `get_trips` and `add_trip`.
+The two servers complement each other — run both.
+
+Of the nine tools here, **two overlap** and **seven have no official
+equivalent**:
+
+| Capability | Official server | This server |
+| --- | --- | --- |
+| Search cities, get a city, list meetups | yes | no — use theirs |
+| List own trips | yes | yes (calls theirs) |
+| Add a trip | yes | yes (calls theirs) |
+| Update a trip | **no** | yes |
+| Delete a trip | **no** | yes |
+| Read / update profile, tags, socials | **no** | yes |
+| Plan a trip sync (non-mutating diff) | **no** | yes |
+| Reconcile trips idempotently | **no** | yes |
+
+The two overlapping tools are routing wrappers rather than reimplementations:
+they call the official API and fall back to the first-party endpoints only if
+that fails.
+
+The reconciliation pair is the substantive addition. `add_trip` is a blind
+append — call it twice and you get two trips. `nomads_sync_trips` diffs your
+desired itinerary against what is actually stored and applies only the
+difference, so a second run changes nothing.
+
+Verified by probing both endpoints on 2026-09-06; see
+[`docs/api-observations.md`](docs/api-observations.md) for the method and
+results.
 
 ## Security
 

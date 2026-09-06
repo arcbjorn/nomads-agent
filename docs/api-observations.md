@@ -76,6 +76,64 @@ inspected rather than the status alone:
 
 Mapped to `AUTH_EXPIRED` and `INVALID_INPUT` respectively.
 
+### Verified absent: update, delete and profile
+
+Probed 2026-09-06. The official API's trip support is **append-only**; there is
+no way to edit or remove a trip, and nothing for profile fields. This was
+established by testing rather than inferred from the docs.
+
+**Other HTTP verbs on `/api/trips` are not separate operations.** `PUT`,
+`PATCH` and `DELETE` all return HTTP 200, which looks like support, but the
+same handler answers every verb:
+
+| Request | Response |
+| --- | --- |
+| `PUT`/`PATCH`/`DELETE` + credentials in the JSON body | `missing_params` |
+| `PUT`/`DELETE` + credentials in the query string | `invalid_username_or_key` |
+| `GET` + credentials in the query string (documented read) | `invalid_username_or_key` |
+
+The body is not parsed for non-`POST` verbs, and the credential check is
+identical to `GET`. Nothing verb-specific exists behind them.
+
+**No hidden MCP tools.** `tools/list` returns exactly five. Calling any of
+`update_trip`, `delete_trip`, `remove_trip`, `edit_trip`, `get_profile`,
+`update_profile`, `set_bio` or `sync_trips` returns *unknown tool*.
+`resources/list` and `prompts/list` return `-32601 Method not found`, so the
+server is tools-only.
+
+**No undocumented REST paths.** `/api/profile`, `/api/user`, `/api/me`,
+`/api/trip`, `/api/trips/delete`, `/api/bio` and `/api/tags` all fall through
+to the `/api` index page rather than resolving.
+
+`llms.txt` agrees: it contains no occurrence of "update", "delete", "edit" or
+"profile".
+
+This is what the hybrid client in `internal/client/hybrid.go` routes around.
+
+### Capability overlap with this project
+
+Of the nine MCP tools this project exposes, **two overlap** the official API and
+**seven have no official equivalent**:
+
+| Our tool | Official equivalent | Notes |
+| --- | --- | --- |
+| `nomads_list_trips` | `get_trips` | overlaps — we call their API for it |
+| `nomads_add_trip` | `add_trip` | overlaps — we call their API for it |
+| `nomads_update_trip` | none | no endpoint exists |
+| `nomads_delete_trip` | none | no endpoint exists |
+| `nomads_get_profile` | none | no endpoint exists |
+| `nomads_update_profile` | none | no endpoint exists |
+| `nomads_plan_trip_sync` | none | higher-level: non-mutating diff |
+| `nomads_sync_trips` | none | higher-level: idempotent reconcile |
+| `nomads_capabilities` | none | reports which backend serves what |
+
+The two overlapping tools are routing wrappers, not reimplementations: the
+hybrid client calls the official API and falls back to the first-party
+endpoints only on an auth or availability failure.
+
+Their `search_cities`, `get_city` and `list_meetups` are **not** duplicated
+here — run both servers side by side.
+
 ### The official MCP server
 
 `https://nomads.com/mcp` speaks MCP over Streamable HTTP with no authentication
