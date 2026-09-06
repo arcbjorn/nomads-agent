@@ -1,0 +1,37 @@
+# Credentials and local state — never commit these.
+state.json
+*.session
+.env
+.env.*
+!.env.example
+config.yaml
+!config.example.yaml
+
+# Real itineraries may reveal travel plans; commit only the example.
+trips.yaml
+!trips.example.yaml
+
+# Browser profiles and captured pages can embed session cookies.
+browser-data/
+*.har
+captured/
+scratch/
+
+# Build output
+/nomads
+/nomads-mcp
+/bin/
+/dist/
+*.exe
+
+# Go
+*.test
+*.out
+coverage.*
+vendor/
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
