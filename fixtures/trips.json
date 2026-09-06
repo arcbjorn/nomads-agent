@@ -1,0 +1,35 @@
+{
+  "_comment": "Shape of a GET /api/trips response (the official API). Every value is invented: synthetic ids, fictional cities and dates.",
+  "trips": [
+    {
+      "trip_id": "fixture0000000000000000000000001",
+      "city": "Lisbon",
+      "country": "Portugal",
+      "city_slug": "lisbon-portugal",
+      "date_start": "2030-04-10",
+      "date_end": "2030-04-18",
+      "latitude": 38.7223,
+      "longitude": -9.1393
+    },
+    {
+      "trip_id": "fixture0000000000000000000000002",
+      "city": "Porto",
+      "country": "Portugal",
+      "city_slug": "porto-portugal",
+      "date_start": "2030-05-01",
+      "date_end": "2030-05-20",
+      "latitude": 41.1495,
+      "longitude": -8.6108
+    },
+    {
+      "trip_id": "fixture0000000000000000000000003",
+      "city": "Málaga",
+      "country": "Spain",
+      "city_slug": "malaga-spain",
+      "date_start": "2029-02-03",
+      "date_end": "2029-02-11",
+      "latitude": 36.7213,
+      "longitude": -4.4213
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "_comment": "Shape of a normalised Profile as parsed from an authenticated profile page. Every value is invented.",
+  "username": "testuser",
+  "bio": "Remote developer, currently in Europe.",
+  "tags": ["Web Dev", "Software Dev", "Sports"],
+  "website": "https://example.com/",
+  "twitter": "exampleuser",
+  "instagram": "exampleuser",
+  "youtube": "",
+  "tiktok": ""
+}
